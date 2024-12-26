@@ -1,0 +1,117 @@
+*,*::before,*::after{
+    box-sizing:border-box ;
+    margin:0 ;
+    padding:0 ;
+}
+
+.wrapper{
+    height:100vh ;
+    width:100vw ;
+    background-color: #212121 ;
+    display:grid ;
+    place-items: center ;
+    color:white ;
+    overflow-x: hidden ;
+}
+
+p{
+    position: absolute;
+    top:3rem ;
+    left:50% ;
+    transform:translateX(-50%) ;
+    color: #ffb766 ;
+    background-color: #24525c;
+    border:1px solid rgba(255,255,255,0.25) ;
+    padding:0.5rem 3rem ;
+}
+
+.game-container{
+    width:90% ;
+    max-width:20rem ;
+    border:1px solid rgba(255,255,255,0.25) ;
+    border-radius:1rem ;
+    padding:2rem ;
+    display:grid ;
+    grid-template-columns: repeat(3,1fr);
+    aspect-ratio: 1/1 ;
+    background-color: rgba(255,255,255,0.15); 
+}
+
+.box{
+    position: relative;
+    width:100% ;
+    display: grid; 
+    justify-content: center;
+     align-items: center;
+    font-size:3rem ;
+    cursor:pointer ;
+    aspect-ratio: 1/1;
+}
+
+.box1, .box4 {
+    border-bottom: 2px solid white;
+    border-right: 2px solid white ;
+    background-color: rgba(255,255,255,0.25);
+}
+
+.box3, .box6 {
+    border-bottom: 2px solid white;
+    border-left: 2px solid white ;
+    background-color: rgba(255,255,255,0.25);
+}
+
+.box2, .box5 {
+    border-bottom: 2px solid white;
+    background-color: rgba(255,255,255,0.25);
+}
+
+.box7{
+    border-right: 2px solid white ;
+    background-color: rgba(255,255,255,0.25);
+}
+
+.box8{
+    background-color: rgba(255,255,255,0.25)
+}
+
+.box9{
+    border-left: 2px solid white ;
+    background-color: rgba(255,255,255,0.25);
+}
+
+.stopwatch{
+    position:absolute ;
+    top:8rem ;
+    background-color:#333333 ;
+    padding:0.57rem  1.49rem ;
+    border:1px solid rgba(255,255,255,0.15) ;
+    border-radius:1.5rem ;
+    font-weight:900 ;
+    font-size:1.5rem ;
+    color:#40c437 ;
+}
+
+.btn{
+    display:none ;
+    background-color: #68d388;
+    padding:0.67rem  0.89rem ;
+    border:1px solid rgba(255,255,255,0.15) ;
+    border-radius:0.5rem ;
+    font:bolder ;
+    position:absolute ;
+    bottom:3rem ;
+}
+
+.btn:hover{
+    background-color: rgba(255,255,255,0.35);
+    color:cyan ;
+    cursor:pointer ;
+}
+
+.btn.active{
+    display:flex ;
+}
+
+.win{
+    background-color: green;
+}
