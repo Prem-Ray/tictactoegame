@@ -6,6 +6,7 @@ let  hourTime = document.getElementById('hourTime') ;
 let  minuteTime = document.getElementById('minuteTime') ; 
 let  secondTime = document.getElementById('secondTime') ; 
 
+let counter=0 ;
 let currentPlayer = 'x' ;
 let winingPositions = [
     [0,1,2],
@@ -26,7 +27,8 @@ let timer = false ;
 
 
 function startGame(){
-    currentPlayer = 'x' ;
+    counter=0 ;
+    currentPlayer = 'X' ;
     // reset the timer
     reset() ;
     player.innerText = `Current Player - ${currentPlayer}` ;
@@ -103,28 +105,25 @@ function showtime(){
         setTimeout("showtime()",10) ;
     }    
 }
-start() ;
+// start() ;
 
 function GameOverCheck() {
+    let answer = '' ;
     // here check there have a winner or not
     winingPositions.forEach((position,index)=>{
-        if((gridboxes[position[0]]!=='' || gridboxes[position[1]]!=='' || gridboxes[position[2]]!=='')
-            && ((gridboxes[position[0]]===gridboxes[position[1]]) && (gridboxes[position[1]]===gridboxes[position[2]]))){
+        if((gridboxes[position[0]] !== "" || gridboxes[position[1]] !== "" || gridboxes[position[2]] !== "") &&
+            gridboxes[position[0]] === gridboxes[position[1]] && gridboxes[position[0]] === gridboxes[position[2]])  { 
                 // here have a winner
                 // after winning we want to remove the pointer Events
                 boxes.forEach((box,index)=>{
                     box.style.pointerEvents = 'none' ;
-                })
+                });
 
                 // check who is the winner
-                let answer = '' ;
-                if(gridboxes[position[0]] === 'x'){
-                    answer = 'x' ;
-                    player.innerText = `Our Winner - ${answer} ` ;
-
+                if(gridboxes[position[0]] === 'X'){
+                    answer = 'X' ;
                 }else{
-                    answer = 'o' ;
-                    player.innerText = `Our Winner - ${answer}` ;   
+                    answer = 'O' ;
                 }
 
                 // set green color for winner
@@ -132,14 +131,17 @@ function GameOverCheck() {
                 boxes[position[1]].classList.add('win') ;
                 boxes[position[2]].classList.add('win') ;
 
-                // play new game button arrive
-                btn.classList.add('active') ;
-                
                 // end the timer
                 end() ;
-        }
-    })
+            }
+        });
 
+    if(answer !== ''){
+        player.innerText = `Our Winner - ${answer} ` ;
+        // play new game button arrive
+        btn.classList.add('active') ;
+        return ;
+    }
     // check if game tied or not
     let filledbox = 0 ;
     gridboxes.forEach((box,index)=>{
@@ -151,32 +153,40 @@ function GameOverCheck() {
         player.innerText = `Game Tied!` ;
         timer = false ;
         btn.classList.add('active') ;
+        return ;
     }
 }
 
 
 function handlePlayerTurn(index){
-    if(currentPlayer==='x'){
-        boxes[index].innerHTML = 'x' ;
-        currentPlayer = 'o' ;
+    if(currentPlayer==='X'){
+        boxes[index].innerHTML = 'X' ;
+        currentPlayer = 'O' ;
         player.innerText = `Current Player - ${currentPlayer}` ;
         boxes[index].style.pointerEvents = 'none' ;
-        gridboxes[index] = 'x' ;
+        gridboxes[index] = 'X' ;
     }else{
-        boxes[index].innerHTML = 'o' ;
-        currentPlayer = 'x' ;
+        boxes[index].innerHTML = 'O' ;
+        currentPlayer = 'X' ;
         player.innerText = `Current Player - ${currentPlayer}` ;
         boxes[index].style.pointerEvents = 'none' ;
-        gridboxes[index] = 'o' ;
+        gridboxes[index] = 'O' ;
     }
 }
 
+function startyourWatch(){
+    if(counter===0){
+        start() ;
+    }
+    counter++ ;
+}
 
 
 // add click event for click on each boxes
 boxes.forEach((box,index)=>{
     box.addEventListener('click',()=>{
-        box.innerHTML='x' ;
+        startyourWatch() ;
+        box.innerHTML='X' ;
         handlePlayerTurn(index) ;
         GameOverCheck() ;
     })
@@ -185,7 +195,7 @@ boxes.forEach((box,index)=>{
 // start new Game
 btn.addEventListener('click',()=>{
     startGame();
-    start() ; 
+    startyourWatch() ;
 }) ;
 
 
