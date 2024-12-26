@@ -1,2 +1,2 @@
 # tictactoegame
-i developed using html,css &amp; js
+i developed this project using html,css &amp; js
