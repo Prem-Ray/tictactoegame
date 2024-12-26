@@ -40,10 +40,72 @@ function startGame(){
     // invisible the new game button
     btn.classList.remove('active') ;
 }
+
 startGame() ;
 
-function GameOverCheck() {
 
+// start the stopwatch
+function start(){
+    stopwatch.classList.add('active') ;
+    timer = true ;
+    showtime() ;
+}
+// stop the stopwatch
+function end(){
+    timer = false ;
+}
+// reset the stopwatch
+function reset(){
+    hour=0 ;
+    minute=0 ;
+    second=0 ;
+    count=0 ;
+    timer=false ;
+    
+    hourTime.innerHTML="00" ;
+    minuteTime.innerHTML="00" ;
+    secondTime.innerHTML="00";
+}
+// for show timing in UI
+function showtime(){
+    if(timer == true) {
+        count++ ;
+        if(count==100){
+            second++ ;
+            count=0 ;
+        }
+        if(second==60){
+            minute++ ;
+            second=0 ;
+        }
+        if(minute==60){
+            hour++ ;
+            minute=0 ;
+            second=0 ;
+        }
+        var hrString = hour ;
+        var minString  = minute ;
+        var secString = second ;
+
+        if(hour<10){
+            hrString="0"+hrString ;
+        }
+        if(minute<10){
+            minString="0"+minString ;
+        }
+        if(second<10){
+            secString="0"+secString ;
+        }
+        hourTime.innerHTML = hrString ;
+        minuteTime.innerHTML = minString ;
+        secondTime.innerHTML = secString ;
+    
+        setTimeout("showtime()",10) ;
+    }    
+}
+start() ;
+
+function GameOverCheck() {
     // here check there have a winner or not
     winingPositions.forEach((position,index)=>{
         if((gridboxes[position[0]]!=='' || gridboxes[position[1]]!=='' || gridboxes[position[2]]!=='')
@@ -110,71 +172,10 @@ function handlePlayerTurn(index){
 }
 
 
-// start the stopwatch
-function start(){
-    stopwatch.classList.add('active') ;
-    timer = true ;
-    showtime() ;
-}
-// stop the stopwatch
-function end(){
-    timer = false ;
-}
-// reset the stopwatch
-function reset(){
-    hour=0 ;
-    minute=0 ;
-    second=0 ;
-    count=0 ;
-    timer=false ;
-    
-    hourTime.innerHTML="00" ;
-    minuteTime.innerHTML="00" ;
-    secondTime.innerHTML="00";
-}
-// for show timing in UI
-function showtime(){
-    if(timer == true) {
-        count++ ;
-        if(count==100){
-            second++ ;
-            count=0 ;
-        }
-        if(second==60){
-            minute++ ;
-            second=0 ;
-        }
-        if(minute==60){
-            hour++ ;
-            minute=0 ;
-            second=0 ;
-        }
-        var hrString = hour ;
-        var minString  = minute ;
-        var secString = second ;
-
-        if(hour<10){
-            hrString="0"+hrString ;
-        }
-        if(minute<10){
-            minString="0"+minString ;
-        }
-        if(second<10){
-            secString="0"+secString ;
-        }
-        hourTime.innerHTML = hrString ;
-        minuteTime.innerHTML = minString ;
-        secondTime.innerHTML = secString ;
-    
-        setTimeout("showtime()",10) ;
-    }
-     
-}
 
 // add click event for click on each boxes
 boxes.forEach((box,index)=>{
     box.addEventListener('click',()=>{
-      start() ;
         box.innerHTML='x' ;
         handlePlayerTurn(index) ;
         GameOverCheck() ;
@@ -182,6 +183,9 @@ boxes.forEach((box,index)=>{
 })
 
 // start new Game
-btn.addEventListener('click',startGame) ;
+btn.addEventListener('click',()=>{
+    startGame();
+    start() ; 
+}) ;
 
 
