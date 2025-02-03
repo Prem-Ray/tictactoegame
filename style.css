@@ -12,6 +12,7 @@
     place-items: center ;
     color:white ;
     overflow-x: hidden ;
+    select:none ;
 }
 
 p{
